@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bank_feed/pages/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -27,7 +29,11 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future signUp() async {
-
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim()
+        );
   }
 
   @override
@@ -121,8 +127,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18, 
-                            ),
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
@@ -134,7 +140,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Not a member?',
+                      'I am a member!',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -142,7 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     GestureDetector(
                       onTap: widget.showLoginPage,
                       child: Text(
-                        ' Join now',
+                        ' Login now',
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
