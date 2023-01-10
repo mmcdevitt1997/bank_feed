@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
-  final VoidCallback showRegisterPage; 
+  final VoidCallback showRegisterPage;
   const LoginPage({super.key, required this.showRegisterPage});
 
   @override
@@ -119,7 +119,11 @@ class _LoginPageState extends State<LoginPage> {
                       child: Center(
                         child: Text(
                           'Sign In',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),
