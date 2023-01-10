@@ -1,10 +1,13 @@
-import 'package:bank_feed/login_page.dart';
+// ignore_for_file: prefer_const_constructors
+
+import 'package:bank_feed/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material/material.dart';
 
-import 'home_page.dart';
+import '../pages/home_page.dart';
+import 'auth_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -18,7 +21,7 @@ class MainPage extends StatelessWidget {
             if (snapshot.hasData) {
               return HomePage();
             } else {
-              return LoginPage();
+              return AuthPage();
             }
           }),
     );
