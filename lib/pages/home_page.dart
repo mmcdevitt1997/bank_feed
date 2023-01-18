@@ -31,18 +31,24 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title:Text(
+          user.email!,
+          style: TextStyle(fontSize: 16),
+          ),
+          actions: [
+          GestureDetector(
+            onTap: () {
+              FirebaseAuth.instance.signOut();
+            },
+            child: Icon(Icons.logout)
+          ),
+          ],
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('sign in as: ' + user.email!),
-            MaterialButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              },
-              color: Colors.red,
-              child: const Text('sign out'),
-            ),
             Expanded(
               child: FutureBuilder(
                 future: getDocId(),
@@ -50,8 +56,13 @@ class _HomePageState extends State<HomePage> {
                   return ListView.builder(
                     itemCount: docIDs.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        title: GetUserName(documentId: docIDs[index]),
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          title: GetUserName(documentId: docIDs[index]),
+                          tileColor: Colors.grey[200],
+
+                        ),
                       );
                     },
                   );
