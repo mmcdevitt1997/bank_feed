@@ -20,9 +20,12 @@ class _HomePageState extends State<HomePage> {
 
 //get docIDs
   Future getDocId() async {
-    await FirebaseFirestore.instance.collection('users').get().then(
+    await FirebaseFirestore.instance
+        .collection('users')
+        .orderBy('age', descending: false)
+        .get()
+        .then(
           (snapshot) => snapshot.docs.forEach((document) {
-            print(document.reference);
             docIDs.add(document.reference.id);
           }),
         );
@@ -30,46 +33,46 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title:Text(
-          user.email!,
-          style: TextStyle(fontSize: 16),
+    return Center(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            user.email!,
+            style: TextStyle(fontSize: 16),
           ),
           actions: [
-          GestureDetector(
-            onTap: () {
-              FirebaseAuth.instance.signOut();
-            },
-            child: Icon(Icons.logout)
-          ),
-          ],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: FutureBuilder(
-                future: getDocId(),
-                builder: (context, snapshot) {
-                  return ListView.builder(
-                    itemCount: docIDs.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          title: GetUserName(documentId: docIDs[index]),
-                          tileColor: Colors.grey[200],
-
-                        ),
-                      );
-                    },
-                  );
+            GestureDetector(
+                onTap: () {
+                  FirebaseAuth.instance.signOut();
                 },
-              ),
-            ),
+                child: Icon(Icons.logout)),
           ],
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: FutureBuilder(
+                  future: getDocId(),
+                  builder: (context, snapshot) {
+                    return ListView.builder(
+                      itemCount: docIDs.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            title: GetUserName(documentId: docIDs[index]),
+                            tileColor: Colors.grey[200],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
